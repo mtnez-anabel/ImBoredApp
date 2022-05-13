@@ -1,4 +1,4 @@
-package com.anabelmm.imboredapp.ui.home
+package com.anabelmm.imboredapp.view_model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

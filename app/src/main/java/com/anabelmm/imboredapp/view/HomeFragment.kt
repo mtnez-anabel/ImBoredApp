@@ -1,4 +1,4 @@
-package com.anabelmm.imboredapp.ui.home
+package com.anabelmm.imboredapp.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.anabelmm.imboredapp.databinding.FragmentHomeBinding
+import com.anabelmm.imboredapp.view_model.HomeViewModel
 
 class HomeFragment : Fragment() {
 
@@ -28,7 +29,7 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
+        val textView: TextView = binding.textActivity
         homeViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }

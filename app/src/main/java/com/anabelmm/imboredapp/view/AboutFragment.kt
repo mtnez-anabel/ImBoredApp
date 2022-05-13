@@ -1,4 +1,4 @@
-package com.anabelmm.imboredapp.ui.about_view
+package com.anabelmm.imboredapp.view
 
 import android.os.Bundle
 import android.view.LayoutInflater

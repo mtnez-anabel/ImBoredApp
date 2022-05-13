@@ -1,4 +1,4 @@
-package com.anabelmm.imboredapp.ui.list_activities_view
+package com.anabelmm.imboredapp.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.anabelmm.imboredapp.databinding.FragmentListActivitiesBinding
+import com.anabelmm.imboredapp.view_model.ListActivitiesViewModel
 
 class ListActivitiesFragment : Fragment() {
 

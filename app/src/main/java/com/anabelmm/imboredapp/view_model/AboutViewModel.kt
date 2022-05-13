@@ -1,9 +1,8 @@
-package com.anabelmm.imboredapp.ui.about_view
+package com.anabelmm.imboredapp.view_model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.anabelmm.imboredapp.R
 
 class AboutViewModel : ViewModel() {
 

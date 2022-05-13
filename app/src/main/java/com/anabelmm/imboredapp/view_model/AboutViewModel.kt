@@ -1,13 +1,15 @@
-package com.anabelmm.imboredapp.ui.gallery
+package com.anabelmm.imboredapp.ui.about_view
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.anabelmm.imboredapp.R
 
-class GalleryViewModel : ViewModel() {
+class AboutViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is gallery Fragment"
+        
+        value = ""
     }
     val text: LiveData<String> = _text
 }

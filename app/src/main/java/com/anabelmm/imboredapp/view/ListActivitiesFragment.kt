@@ -1,4 +1,4 @@
-package com.anabelmm.imboredapp.ui.home
+package com.anabelmm.imboredapp.ui.list_activities_view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.anabelmm.imboredapp.databinding.FragmentHomeBinding
+import com.anabelmm.imboredapp.databinding.FragmentListActivitiesBinding
 
-class HomeFragment : Fragment() {
+class ListActivitiesFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentListActivitiesBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -22,14 +22,14 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+        val listActivitiesViewModel =
+            ViewModelProvider(this)[ListActivitiesViewModel::class.java]
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentListActivitiesBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
+        val textView: TextView = binding.textGallery
+        listActivitiesViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root

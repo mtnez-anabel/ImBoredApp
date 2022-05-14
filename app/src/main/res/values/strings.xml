@@ -10,4 +10,13 @@
     <string name="menu_activities">Activities proposed</string>
     <string name="menu_about">About this app</string>
     <string name="about_string">The \"I\'m bored App\" helps you find things to do when you\'re bored! There are fields like the number of participants, activity type, and more that help you narrow down your results.</string>
+    <string name="hey_string">Hey!!!</string>
+    <string name="give_me_activity_string">Give me an activity!</string>
+    <string name="no_link_required">This activity does not require a link</string>
+    <string name="accessibility">Accessibility:  </string>
+    <string name="type">Type:  </string>
+    <string name="participants">Participants:  </string>
+    <string name="price">Price:  </string>
+    <string name="key">Key:  </string>
+    <string name="link">Link:  </string>
 </resources>

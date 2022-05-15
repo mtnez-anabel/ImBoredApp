@@ -4,6 +4,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+/**
+ *  [CardEntity] class represents the SQLite table `card_table`.
+ */
 @Entity(tableName = "card_table")
 data class CardEntity(
     @PrimaryKey
@@ -14,5 +17,4 @@ data class CardEntity(
     @ColumnInfo(name = "participants") val participants: Int,
     @ColumnInfo(name = "price") val price: Double,
     @ColumnInfo(name = "link") val link: String,
-
-    )
+)

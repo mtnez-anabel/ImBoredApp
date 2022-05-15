@@ -1,5 +1,7 @@
 package com.anabelmm.imboredapp.view
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -54,13 +56,22 @@ class HomeFragment : Fragment() {
                 binding.textPrice.text = "${getString(R.string.price)}  ${it.price}"
                 binding.textKey.text = "${getString(R.string.key)}  ${it.key}"
                 val link = it.link
-                if (link != "")
-                    binding.textLink.text = "${getString(R.string.link)}  ${it.link}"
-                else
+                if (link != "") {
+                    binding.textLink.text = link
+                    binding.textLink.setOnClickListener {
+                        startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(link)
+                            )
+                        )
+                    }
+                } else {
                     binding.textLink.text = getString(R.string.no_link_required)
+                    binding.textLink.setOnClickListener(null)
+                }
             }
         }
-
         return root
     }
 

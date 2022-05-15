@@ -1,25 +1,26 @@
 package com.anabelmm.imboredapp.view_model
 
-import android.content.Context
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.anabelmm.imboredapp.model.ActivityCard
 import com.anabelmm.imboredapp.model.Repository
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-class HomeViewModel(context: Context, scope: CoroutineScope) : ViewModel() {
-    //, state: SavedStateHandle
-    private val repository = Repository(context, scope)
+class HomeViewModel : ViewModel() {
+    private val repository = Repository()
     val homeModel = MutableLiveData<ActivityCard?>()
-    //val isVisible = MutableLiveData<Boolean>()
+    val isGifVisible = MutableLiveData(true)
 
-
+    /**
+     * Returns an [ActivityCard] from the Repository.
+     */
     fun getActivity() {
         viewModelScope.launch {
             val result = repository.getActivityFromAPI()
             if (result != null)
                 homeModel.postValue(result)
-            //isVisible.postValue(false)
+            isGifVisible.postValue(false)
         }
     }
 }

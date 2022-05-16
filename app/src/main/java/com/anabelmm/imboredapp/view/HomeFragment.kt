@@ -13,7 +13,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.anabelmm.imboredapp.R
 import com.anabelmm.imboredapp.databinding.FragmentHomeBinding
+import com.anabelmm.imboredapp.model.Repository
+import com.anabelmm.imboredapp.model.db.CardDataBase
 import com.anabelmm.imboredapp.view_model.HomeViewModel
+import com.anabelmm.imboredapp.view_model.HomeViewModelFactory
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
@@ -25,16 +28,24 @@ class HomeFragment : Fragment() {
             _binding = value
         }
 
-    private val homeViewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val dao =
+            CardDataBase.getDatabase(requireActivity().application, lifecycleScope).dao()
+        val repository = Repository(dao)
+
+        val homeViewModel: HomeViewModel by viewModels {
+            HomeViewModelFactory(repository)
+        }
         homeViewModel.isGifVisible.observe(viewLifecycleOwner) {
             binding.gifCardView.isVisible = it    //It will be visible just the first time
             binding.cardView.isVisible = !it
@@ -72,15 +83,18 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-        return root
     }
+
 
     private fun getNewActivity(homeViewModel: HomeViewModel) {
         lifecycleScope.launch {
             homeViewModel.getActivity()
             if (homeViewModel.isGifVisible.value == true)
                 homeViewModel.isGifVisible.postValue(false)
-            binding.cardView.isVisible = true
+            // Inserts the ActivityCard to BD
+            homeViewModel.homeModel.value?.let { homeViewModel.insertActivityToDB(it) }
+            val r = homeViewModel.getFromDB()
+            Log.i("list of cards", r.toString())
         }
     }
 

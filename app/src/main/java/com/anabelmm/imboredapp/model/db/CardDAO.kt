@@ -11,8 +11,10 @@ interface CardDAO {
     suspend fun getAllCards(): List<CardEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertAllCards(cards: List<CardEntity>)
+    suspend fun insertCard(card: CardEntity)
 
     @Query("DELETE FROM card_table")
     suspend fun deleteAllCards()
+
+
 }

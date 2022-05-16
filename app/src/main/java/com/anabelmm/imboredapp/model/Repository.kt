@@ -32,23 +32,23 @@ class Repository(private val dao: CardDAO) {
         return listActivityCards
     }
 
-    suspend fun setListActivityToDB(list: List<ActivityCard?>) {
-        val listEntities = mutableListOf<CardEntity>()
-        for (i in list.indices) {
-            val cardEntity = list[i]?.let {
+    suspend fun setActivityCardToDB(card: ActivityCard?) {
+
+        val cardEntity =
+            card?.let {
                 CardEntity(
                     key = it.key,
-                    activity = it.activity,
-                    accessibility = it.accessibility,
-                    type = it.type,
-                    participants = it.participants,
-                    price = it.price,
-                    link = it.link,
+                    activity = card.activity,
+                    accessibility = card.accessibility,
+                    type = card.type,
+                    participants = card.participants,
+                    price = card.price,
+                    link = card.link,
                 )
             }
-            if (cardEntity != null) listEntities.add(cardEntity)
+        if (cardEntity != null) {
+            dao.insertCard(cardEntity)
         }
-        dao.insertAllCards(listEntities)
     }
 
     suspend fun deleteAllCardActivities() = dao.deleteAllCards()

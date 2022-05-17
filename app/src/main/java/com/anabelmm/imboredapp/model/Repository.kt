@@ -1,5 +1,6 @@
 package com.anabelmm.imboredapp.model
 
+import android.util.Log
 import com.anabelmm.imboredapp.model.db.CardDAO
 import com.anabelmm.imboredapp.model.db.CardEntity
 
@@ -32,8 +33,7 @@ class Repository(private val dao: CardDAO) {
         return listActivityCards
     }
 
-    suspend fun setActivityCardToDB(card: ActivityCard?) {
-
+    suspend fun insertActivityCardToDB(card: ActivityCard?) {
         val cardEntity =
             card?.let {
                 CardEntity(

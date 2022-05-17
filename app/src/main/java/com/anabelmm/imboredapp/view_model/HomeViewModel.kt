@@ -17,19 +17,19 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
      */
     fun getActivity() {
         viewModelScope.launch {
-            val result = repository.getActivityFromAPI()
-            if (result != null)
-                homeModel.postValue(result)
+            val activityCard = repository.getActivityFromAPI()
+            if (activityCard != null) {
+                homeModel.postValue(activityCard)
+                insertActivityToDB(activityCard)
+            }
             isGifVisible.postValue(false)
+
         }
     }
 
-    suspend fun insertActivityToDB(card: ActivityCard) {
-        repository.setActivityCardToDB(card)
-    }
-
-    suspend fun getFromDB(): List<ActivityCard?> {
-        return repository.getListActivityFromDB()
+    private suspend fun insertActivityToDB(card: ActivityCard) {
+        repository.insertActivityCardToDB(card)
+        homeModel.postValue(card)
     }
 }
 

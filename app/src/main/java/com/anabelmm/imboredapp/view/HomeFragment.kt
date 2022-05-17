@@ -17,6 +17,7 @@ import com.anabelmm.imboredapp.model.Repository
 import com.anabelmm.imboredapp.model.db.CardDataBase
 import com.anabelmm.imboredapp.view_model.HomeViewModel
 import com.anabelmm.imboredapp.view_model.HomeViewModelFactory
+import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
@@ -85,16 +86,11 @@ class HomeFragment : Fragment() {
         }
     }
 
-
     private fun getNewActivity(homeViewModel: HomeViewModel) {
         lifecycleScope.launch {
             homeViewModel.getActivity()
             if (homeViewModel.isGifVisible.value == true)
                 homeViewModel.isGifVisible.postValue(false)
-            // Inserts the ActivityCard to BD
-            homeViewModel.homeModel.value?.let { homeViewModel.insertActivityToDB(it) }
-            val r = homeViewModel.getFromDB()
-            Log.i("list of cards", r.toString())
         }
     }
 

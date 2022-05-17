@@ -21,4 +21,5 @@
     <string name="price">Price:  </string>
     <string name="key">Key:  </string>
     <string name="link">Link:  </string>
+    <string name="button_clear_list">Clear list</string>
 </resources>

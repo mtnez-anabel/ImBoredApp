@@ -51,8 +51,7 @@ class ListActivitiesFragment : Fragment() {
         listActivitiesViewModel.listSize.observe(viewLifecycleOwner) {
             binding.button.setOnClickListener {
                 lifecycleScope.launch {
-                    //showAlertDialog(listActivitiesViewModel)
-                    listActivitiesViewModel.deleteList()
+                    showAlertDialog(listActivitiesViewModel)
                 }
             }
             binding.button.isVisible = it > 0
@@ -70,23 +69,24 @@ class ListActivitiesFragment : Fragment() {
     }
 
 
-//    private fun showAlertDialog(listActivitiesViewModel: ListActivitiesViewModel) {
-//        val builder = AlertDialog.Builder(requireActivity().application)
-//        with(builder)
-//        {
-//            setTitle("ALERT!!!")
-//            setMessage("Are you sure you want to delete the list?")
-//            setPositiveButton("YES") { dialog, _ ->
-//                deleteList(listActivitiesViewModel)
-//                dialog.cancel()
-//            }
-//            setNegativeButton("NO") { dialog, _ ->
-//                dialog.cancel()
-//            }
-//            create()
-//            show()
-//        }
-//    }
+    private fun showAlertDialog(listActivitiesViewModel: ListActivitiesViewModel) {
+        val builder = AlertDialog.Builder(activity)
+        with(builder)
+        {
+            setMessage("Are you sure you want to delete the list?")
+            setPositiveButton("YES") { dialog, _ ->
+                lifecycleScope.launch {
+                    listActivitiesViewModel.deleteList()
+                }
+                dialog.cancel()
+            }
+            setNegativeButton("NO") { dialog, _ ->
+                dialog.cancel()
+            }
+            create()
+            show()
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

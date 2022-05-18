@@ -1,12 +1,17 @@
 package com.anabelmm.imboredapp.view
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -17,8 +22,10 @@ import com.anabelmm.imboredapp.model.Repository
 import com.anabelmm.imboredapp.model.db.CardDataBase
 import com.anabelmm.imboredapp.view_model.HomeViewModel
 import com.anabelmm.imboredapp.view_model.HomeViewModelFactory
-import kotlinx.coroutines.joinAll
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+
 
 class HomeFragment : Fragment() {
 
@@ -52,21 +59,29 @@ class HomeFragment : Fragment() {
             binding.cardView.isVisible = !it
         }
         binding.activityButton.setOnClickListener {
+            if (!isNetworkAvailable(requireActivity().application)) {
+                binding.gifCardView.isVisible = true
+                Snackbar.make(
+                    binding.activityButton,
+                    "Please, check your internet connection!",
+                    Snackbar.LENGTH_SHORT
+                ).setAnchorView(binding.activityButton.id)
+                    .show()
+                return@setOnClickListener
+            }
             getNewActivity(homeViewModel)
         }
 
         homeViewModel.homeModel.observe(viewLifecycleOwner) {
             //Update ActivityCard
-            Log.i("Card..........", it.toString())
+            Log.i("Card: ", it.toString())
             if (it != null) {
                 binding.textActivity.text = it.activity
-                binding.textAccessibility.text =
-                    "${getString(R.string.accessibility)}  ${it.accessibility}"
-                binding.textType.text = "${getString(R.string.type)}  ${it.type}"
-                binding.textParticipants.text =
-                    "${getString(R.string.participants)}  ${it.participants}"
-                binding.textPrice.text = "${getString(R.string.price)}  ${it.price}"
-                binding.textKey.text = "${getString(R.string.key)}  ${it.key}"
+                binding.textAccessibility.text = it.accessibility.toString()
+                binding.textType.text = it.type
+                binding.textParticipants.text = it.participants.toString()
+                binding.textPrice.text = it.price.toString()
+                binding.textKey.text = it.key.toString()
                 val link = it.link
                 if (link != "") {
                     binding.textLink.text = link
@@ -82,6 +97,14 @@ class HomeFragment : Fragment() {
                     binding.textLink.text = getString(R.string.no_link_required)
                     binding.textLink.setOnClickListener(null)
                 }
+            } else {
+                binding.gifCardView.isVisible = true
+                Snackbar.make(
+                    binding.activityButton,
+                    "Sorry, the server is not available!",
+                    Snackbar.LENGTH_SHORT
+                ).setAnchorView(binding.activityButton.id)
+                    .show()
             }
         }
     }
@@ -89,11 +112,33 @@ class HomeFragment : Fragment() {
     private fun getNewActivity(homeViewModel: HomeViewModel) {
         lifecycleScope.launch {
             homeViewModel.getActivity()
-            if (homeViewModel.isGifVisible.value == true)
+            if (homeViewModel.isGifVisible.value == true) {
+                delay(1000)
                 homeViewModel.isGifVisible.postValue(false)
+            }
         }
+
     }
 
+    private fun isNetworkAvailable(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val capabilities =
+            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        if (capabilities != null) {
+            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
+                return true
+            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
+                return true
+            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
+                return true
+            }
+        }
+        return false
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

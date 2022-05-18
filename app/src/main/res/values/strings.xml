@@ -9,9 +9,10 @@
     <string name="menu_home">Home</string>
     <string name="menu_activities">Activities proposed</string>
     <string name="menu_about">About this app</string>
-    <string name="about_string">The \"I\'m bored App\" helps you find things to do when you\'re bored!
+    <string name="about_string"><i><b>I\'m bored App</b></i> helps you find things to do when you\'re bored!
         You just need to press the button and you will have a new activity.
-    If the activity has a link, you can click on it and it will take you to the website.</string>
+        If the activity has a link, you can tap on it and it will take you to the website.
+    You can also search in the menu of the <i>Proposed Activities</i>, a list of the activities that have been shown so far.</string>
     <string name="hey_string">Hey!!!</string>
     <string name="give_me_activity_string">Give me an activity!</string>
     <string name="no_link_required">This activity does not require a link</string>

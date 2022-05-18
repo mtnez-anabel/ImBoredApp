@@ -10,6 +10,7 @@ const val BASE_ULR = "https://www.boredapi.com/"
 /**
  * Builds a Retrofit object with a base URI and a converter factory to build a web service API.
  * The converter tells Retrofit what to do with the data it gets back from the web service.
+ * It is using the default timeouts settings.
  */
 private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_ULR)

@@ -4,9 +4,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.anabelmm.imboredapp.model.ActivityCard
-import com.anabelmm.imboredapp.model.Repository
+import com.anabelmm.imboredapp.model.RepositoryImp
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class ListActivitiesViewModel(private val repository: Repository) : ViewModel() {
+@HiltViewModel
+class ListActivitiesViewModel @Inject constructor(private val repository: RepositoryImp) :
+    ViewModel() {
 
     val listActivitiesModel = MutableLiveData<List<ActivityCard?>>()
     val listSize = MutableLiveData(0)
@@ -22,17 +26,5 @@ class ListActivitiesViewModel(private val repository: Repository) : ViewModel() 
         repository.deleteAllCardActivities()
         listActivitiesModel.postValue(emptyList())
         listSize.postValue(0)
-    }
-
-}
-
-class ListActivitiesViewModelFactory(private val repository: Repository) :
-    ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(ListActivitiesViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return ListActivitiesViewModel(repository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

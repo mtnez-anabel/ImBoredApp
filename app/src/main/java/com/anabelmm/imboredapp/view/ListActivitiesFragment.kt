@@ -12,12 +12,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.anabelmm.imboredapp.databinding.FragmentListActivitiesBinding
 import com.anabelmm.imboredapp.model.ActivityCard
-import com.anabelmm.imboredapp.model.Repository
-import com.anabelmm.imboredapp.model.db.CardDataBase
 import com.anabelmm.imboredapp.view_model.ListActivitiesViewModel
-import com.anabelmm.imboredapp.view_model.ListActivitiesViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.WithFragmentBindings
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
+@WithFragmentBindings
 class ListActivitiesFragment : Fragment() {
 
     private var _binding: FragmentListActivitiesBinding? = null
@@ -26,6 +27,7 @@ class ListActivitiesFragment : Fragment() {
         set(value) {
             _binding = value
         }
+    private val listActivitiesViewModel by viewModels<ListActivitiesViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,17 +35,6 @@ class ListActivitiesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentListActivitiesBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val dao =
-            CardDataBase.getDatabase(requireActivity().application, lifecycleScope).dao()
-        val repository = Repository(dao)
-
-        val listActivitiesViewModel: ListActivitiesViewModel by viewModels {
-            ListActivitiesViewModelFactory(repository)
-        }
 
         lifecycleScope.launch {
             initRecyclerView(listActivitiesViewModel.getFromDB())
@@ -60,6 +51,7 @@ class ListActivitiesFragment : Fragment() {
         listActivitiesViewModel.listActivitiesModel.observe(viewLifecycleOwner) {
             initRecyclerView(it)
         }
+        return binding.root
     }
 
     private fun initRecyclerView(listActivities: List<ActivityCard?>) {

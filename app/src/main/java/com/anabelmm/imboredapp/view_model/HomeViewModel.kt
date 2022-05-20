@@ -5,10 +5,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.anabelmm.imboredapp.model.ActivityCard
-import com.anabelmm.imboredapp.model.Repository
+import com.anabelmm.imboredapp.model.RepositoryImp
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel(private val repository: Repository) : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(private val repository: RepositoryImp) : ViewModel() {
     val homeModel = MutableLiveData<ActivityCard?>()
     val isGifVisible = MutableLiveData(true)
 
@@ -30,15 +33,5 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
     private suspend fun insertActivityToDB(card: ActivityCard) {
         repository.insertActivityCardToDB(card)
         homeModel.postValue(card)
-    }
-}
-
-class HomeViewModelFactory(private val repository: Repository) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return HomeViewModel(repository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

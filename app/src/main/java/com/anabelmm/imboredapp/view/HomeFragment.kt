@@ -10,23 +10,22 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.anabelmm.imboredapp.R
 import com.anabelmm.imboredapp.databinding.FragmentHomeBinding
-import com.anabelmm.imboredapp.model.Repository
-import com.anabelmm.imboredapp.model.db.CardDataBase
 import com.anabelmm.imboredapp.view_model.HomeViewModel
-import com.anabelmm.imboredapp.view_model.HomeViewModelFactory
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.WithFragmentBindings
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
+@WithFragmentBindings
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
@@ -36,6 +35,7 @@ class HomeFragment : Fragment() {
             _binding = value
         }
 
+    private val homeViewModel by viewModels<HomeViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,17 +43,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val dao =
-            CardDataBase.getDatabase(requireActivity().application, lifecycleScope).dao()
-        val repository = Repository(dao)
-
-        val homeViewModel: HomeViewModel by viewModels {
-            HomeViewModelFactory(repository)
-        }
         homeViewModel.isGifVisible.observe(viewLifecycleOwner) {
             binding.gifCardView.isVisible = it    //It will be visible just the first time
             binding.cardView.isVisible = !it
@@ -107,6 +97,8 @@ class HomeFragment : Fragment() {
                     .show()
             }
         }
+
+        return binding.root
     }
 
     private fun getNewActivity(homeViewModel: HomeViewModel) {
@@ -144,6 +136,4 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }

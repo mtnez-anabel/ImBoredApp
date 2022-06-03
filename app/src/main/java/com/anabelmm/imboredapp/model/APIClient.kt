@@ -6,7 +6,6 @@ import javax.inject.Inject
 class APIClient @Inject constructor(private val apiActivityService: APIActivityService) {
     suspend fun response(): ActivityCard? {
         val response = apiActivityService.getActivity()
-        Log.i("Response ", response.message())
         //isSuccessful() returns true if code() is in the range [200..300)
         if (!response.isSuccessful)
             return null

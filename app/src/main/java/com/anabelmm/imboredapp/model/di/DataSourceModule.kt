@@ -31,7 +31,7 @@ class DataSourceModule {
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("https://www.boredapi.com/")
+            .baseUrl("http://www.boredapi.com/")
             .build()
     }
 

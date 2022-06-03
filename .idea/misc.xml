@@ -4,11 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Work/Anabel/Projects/ImBoredApp/app/src/main/res/drawable/help-48px.xml" value="0.258" />
+        <entry key="..\:/Work/Anabel/Projects/ImBoredApp/app/src/main/res/drawable/help.xml" value="0.2595" />
         <entry key="..\:/Work/Anabel/Projects/ImBoredApp/app/src/main/res/drawable/home-48px.xml" value="0.258" />
+        <entry key="..\:/Work/Anabel/Projects/ImBoredApp/app/src/main/res/drawable/home.xml" value="0.2595" />
         <entry key="..\:/Work/Anabel/Projects/ImBoredApp/app/src/main/res/drawable/ic_menu_camera.xml" value="0.258" />
         <entry key="..\:/Work/Anabel/Projects/ImBoredApp/app/src/main/res/drawable/ic_menu_gallery.xml" value="0.2605" />
         <entry key="..\:/Work/Anabel/Projects/ImBoredApp/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.2695" />
         <entry key="..\:/Work/Anabel/Projects/ImBoredApp/app/src/main/res/drawable/side_nav_bar.xml" value="0.2695" />
+        <entry key="..\:/Work/Anabel/Projects/ImBoredApp/app/src/main/res/drawable/view_headline.xml" value="0.2595" />
         <entry key="..\:/Work/Anabel/Projects/ImBoredApp/app/src/main/res/layout-land/fragment_about.xml" value="0.14814814814814814" />
         <entry key="..\:/Work/Anabel/Projects/ImBoredApp/app/src/main/res/layout-land/fragment_home.xml" value="0.21516754850088182" />
         <entry key="..\:/Work/Anabel/Projects/ImBoredApp/app/src/main/res/layout-land/land.xml" value="0.21428571428571427" />

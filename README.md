@@ -16,3 +16,26 @@ that have been shown so far.
 ## License
 
 This project is licensed under the [MIT](LICENSE) license.
+
+## Architecture pattern, libraries and Android components used
+
+- MVVM (with a "Repository" implementation)
+- LiveData with ViewBinding
+- Retrofit (http client)
+- ROOM database
+- Dependency Injection with Dagger Hilt
+- Testing with MockWebServer
+- Navigation Drawer: used to navigate many screens or functionalities of the app by clicking on the "hamburger" icon
+- Activity with various fragments
+- RecyclerView
+- Management of the different layout designs according to the orientation of the phone: landscape or portrait
+
+![Screenshot_1](https://user-images.githubusercontent.com/101328677/222126157-a7cb8853-9ebe-4033-9d87-9c688a0e276e.png)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+![Screenshot_2](https://user-images.githubusercontent.com/101328677/222126436-777122c0-aa27-4ce1-83af-7b0a155e6e16.png)
+##
+![Screenshot_3](https://user-images.githubusercontent.com/101328677/222126696-015a01fc-fb40-44dc-a478-f85e80c4a3f7.png)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+![Screenshot_4](https://user-images.githubusercontent.com/101328677/222126717-677829fd-75f4-496b-965e-fb90d4f606f4.png)
+
+
+
+
